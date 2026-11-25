@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>KenKeen Seva (OPC) Private Limited — Adventure · Travel · Courier · Food</title>
+<meta name="description" content="KenKeen Seva (OPC) Private Limited — one house for adventure trips, bus travel, parcel courier and food delivery." />
+<link rel="icon" href="assets/img-1.png" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#14283B; --ink-2:#4B5B6B; --line:#DCE2E7; --wash:#F3F5F6; --paper:#fff; --gold:#A9832B;
+    --adv:#2D6A4F; --trv:#1F5F8F; --cou:#8A6414; --food:#C2410C;
+    --r:10px; --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+  body{font-family:'Manrope',system-ui,sans-serif;font-size:17px;line-height:1.6;color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:'Newsreader',Georgia,serif;font-weight:500;letter-spacing:-.015em;color:var(--ink)}
+  :focus-visible{outline:2px solid var(--trv);outline-offset:3px;border-radius:4px}
+  .wrap{width:min(92vw,1480px,100% - 48px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px));margin-inline:auto}
+
+  .topbar{position:fixed;inset:0 0 auto 0;z-index:50;padding-top:var(--safe-t);background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:'Newsreader',Georgia,serif;font-weight:600;font-size:20px;letter-spacing:.14em}
+  .brand img{height:40px;width:auto}
+  .navlinks{display:flex;gap:4px}
+  .navlinks a{font-size:14px;font-weight:600;padding:9px 14px;border-radius:6px;color:var(--ink-2);transition:background .2s,color .2s}
+  .navlinks a:hover{background:var(--wash);color:var(--ink)}
+  @media(max-width:760px){.navlinks{display:none}}
+
+  .hero{padding:calc(68px + var(--safe-t) + 64px) 0 88px;background:linear-gradient(135deg,#FFFFFF 0%,#F7FCF9 52%,#F8FBFF 100%)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,4vw,72px);align-items:center}
+  .tagline{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:600;color:var(--ink-2)}
+  .tagline::before{content:"";width:28px;height:2px;background:var(--gold)}
+  .hero h1{font-size:clamp(44px,6.4vw,80px);line-height:1.04;margin:22px 0}
+  .lead{font-size:20px;color:var(--ink-2);max-width:620px}
+  .legal{margin-top:32px;font-size:12.5px;font-weight:600;letter-spacing:.06em;color:var(--ink-2)}
+  
+
+  .index{display:grid;grid-template-columns:repeat(4,1fr);margin-top:64px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .index a{position:relative;padding:clamp(20px,2vw,30px) clamp(16px,1.8vw,28px) clamp(18px,1.8vw,26px);border-left:1px solid var(--line);transition:background .2s}
+  .index a:first-child{border-left:0}
+  .index a::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--c)}
+  .index a{background:var(--t)}
+  .index a:hover{filter:brightness(.96)}
+  .index b{display:block;font-size:17px;font-weight:700;margin-bottom:4px}
+  .index span{display:block;font-size:14px;line-height:1.45;color:var(--ink-2)}
+  .i1{--c:var(--adv);--t:#F1F8F3} .i2{--c:var(--trv);--t:#F1F7FC} .i3{--c:var(--cou);--t:#FFFAED} .i4{--c:var(--food);--t:#FFF4EE}
+
+  .chapter{padding:104px 0}
+  .tag{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-size:14px;font-weight:700;color:var(--c)}
+  .tag::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--c)}
+  .chapter h2{font-size:clamp(32px,4vw,48px);line-height:1.1}
+  .txt p{margin:20px 0 32px;max-width:480px;color:var(--ink-2)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:14px 26px;border-radius:6px;background:var(--c);color:#fff;font-size:15px;font-weight:700;transition:filter .2s}
+  .btn:hover{filter:brightness(.88)}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  .no-js .reveal{opacity:1;transform:none}
+
+  .adventure{--c:var(--adv);background:#F1F8F3}
+  .adv-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(40px,5vw,88px);align-items:center}
+  .stops{display:flex;flex-wrap:wrap;margin-top:32px;list-style:none}
+  .stops li{padding:0 16px;border-left:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink-2)}
+  .stops li:first-child{padding-left:0;border-left:0}
+  .mosaic{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:170px;gap:12px}
+  .mosaic figure{position:relative;overflow:hidden;border-radius:8px;background:#C9DDD0}
+  .mosaic img{width:100%;height:100%;object-fit:cover}
+  .mosaic figcaption{position:absolute;inset:auto 0 0 0;padding:30px 14px 12px;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(10,24,36,.7))}
+  .mosaic .m1,.mosaic .m3{grid-row:span 2}
+
+  .travel{--c:var(--trv);background:#F1F7FC}
+  .trv-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(40px,5vw,88px);align-items:center}
+  .scene img{width:100%;height:auto;border-radius:var(--r)}
+  .route{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;max-width:480px;margin-bottom:32px;padding:20px 24px;background:var(--paper);border:1px solid var(--line);border-radius:8px}
+  .route small{display:block;font-size:13px;font-weight:600;color:var(--ink-2)}
+  .route b{font-family:'Newsreader',Georgia,serif;font-weight:500;font-size:22px}
+  .route div:last-child{text-align:right}
+  .route svg{width:72px;height:12px;color:var(--trv)}
+
+  .delivery{--c:var(--cou);background:#FFFAED;padding-bottom:72px}
+  .dl-wrap{width:min(100%,1480px);margin-inline:auto}
+  .dl-head{max-width:620px;margin-bottom:44px}
+  .dl-head p{margin-top:16px;color:var(--ink-2)}
+  .dl-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.5vw,32px)}
+  .dl-card{display:flex;flex-direction:column;overflow:hidden;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);transition:border-color .2s,box-shadow .2s}
+  .dl-card{border-top:4px solid var(--c)}
+  .dl-card:hover{border-color:#B9C4CD;box-shadow:0 18px 36px -24px rgba(20,40,59,.45)}
+  .dl-card .pic{aspect-ratio:16/10;background:var(--wash)}
+  .dl-card .pic img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+  .dl-card .body{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:clamp(16px,2vw,32px)}
+  .lab{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--c)}
+  .lab::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
+  .dl-card h3{margin:10px 0;font-size:28px;line-height:1.15}
+  .dl-card p{margin-bottom:24px;font-size:15.5px;color:var(--ink-2)}
+  .dl-card .btn{margin-top:auto}
+  .dl-card.parcel{--c:var(--cou)} .dl-card.food{--c:var(--food)}
+  .rider-strip{position:relative;margin-top:24px;overflow:hidden;border-radius:var(--r)}
+  .rider-strip img{display:block;width:100%;height:clamp(220px,34vw,520px);object-fit:cover;object-position:center 60%}
+  .rider-strip span{position:absolute;left:20px;bottom:20px;padding:9px 16px;border-radius:6px;background:#fff;font-size:14px;font-weight:600}
+
+  .closing{position:relative;padding:72px 0;background-color:#F5F9FB}
+  .closing .wrap{width:min(1480px,100% - 48px)}
+  .closing img{display:block;width:100%;height:auto;max-height:clamp(180px,32vw,420px);object-fit:cover;border-radius:var(--r)}
+
+  footer{padding:44px 0 calc(44px + var(--safe-b));background:var(--ink);color:rgba(255,255,255,.72)}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .foot-brand{display:flex;align-items:center;gap:14px}
+  .logo-tile{padding:6px 8px;border-radius:8px;background:#fff}
+  .logo-tile img{height:48px;width:auto}
+  .fw{font-family:'Newsreader',Georgia,serif;font-weight:600;font-size:20px;letter-spacing:.16em;color:#fff}
+  footer p{max-width:520px;font-size:13px}
+
+  @media(max-width:900px){
+    .wrap{width:min(94vw,100% - 32px)}
+    .hero{padding-top:calc(68px + var(--safe-t) + 36px);padding-bottom:64px}
+    .adv-grid,.trv-grid{grid-template-columns:1fr;gap:40px}
+    .index{grid-template-columns:1fr 1fr;margin-top:48px}
+    .index a:nth-child(3){border-left:0}
+    .index a:nth-child(n+3){border-top:1px solid var(--line)}
+    .chapter{padding:72px 0}
+    .delivery{padding-bottom:56px}
+    .closing{padding:56px 0}
+    .scene{order:-1}
+  }
+  @media(max-width:620px){
+    .wrap{width:calc(100% - 32px)}
+    .dl-wrap{width:100%}
+    .dl-head{padding-inline:16px}
+    .dl-cards{grid-template-columns:1fr}
+    .mosaic{grid-auto-rows:120px;gap:10px}
+    .route{gap:12px;padding:16px}
+    .btn{width:100%}
+    .foot{flex-direction:column;align-items:flex-start}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+  .hero,.chapter{position:relative;overflow:hidden}
+  .hero>.wrap,.chapter>.wrap{position:relative;z-index:1}
+
+  .hero-mark{position:relative;display:grid;place-items:center;width:100%;max-width:640px;min-height:clamp(420px,34vw,560px);justify-self:center}
+  .hero-mark::before{content:"";position:absolute;width:80%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(212,175,74,.2),transparent 65%);filter:blur(10px)}
+  .mark-card{position:relative;width:clamp(190px,45%,340px);padding:3px;border-radius:30px;background:linear-gradient(135deg,#F7E08A,#C9A227 30%,#FFF1B8 52%,#B8860B 76%,#E8C766);box-shadow:0 36px 70px -30px rgba(20,40,59,.45);transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .3s ease-out;animation:floatY 7s ease-in-out infinite}
+  .mark-card img{width:100%;height:auto;border-radius:27px;background:#fff}
+  .chip{position:absolute;display:flex;flex-direction:column;gap:2px;padding:10px 16px;border-radius:14px;background:rgba(255,255,255,.94);border:1px solid var(--line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--ink);white-space:nowrap;box-shadow:0 14px 30px -14px rgba(20,40,59,.35);transform:translate3d(calc(var(--mx,0)*var(--d)*1px),calc(var(--my,0)*var(--d)*1px),0);transition:transform .3s ease-out;animation:floatY 6s ease-in-out infinite}
+  .chip b{font-size:14.5px;font-weight:700;line-height:1.3}
+  .chip small{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--ink-2)}
+  .chip i{width:8px;height:8px;border-radius:2px;background:var(--c)}
+  .d1{--c:var(--adv)} .d2{--c:var(--trv)} .d3{--c:var(--cou)} .d4{--c:var(--food)}
+  .c1{top:6%;left:-2%;--d:18;animation-delay:-1s}
+  .c2{top:30%;right:-4%;--d:-14;animation-duration:7s;animation-delay:-3s}
+  .c3{bottom:22%;left:-6%;--d:22;animation-delay:-2s}
+  .c4{bottom:-3%;right:-4%;--d:-18;animation-duration:8s;animation-delay:-4s}
+  @keyframes floatY{50%{translate:0 -12px}}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:32px}.hero-mark{max-width:380px;min-height:460px}.chip{padding:8px 13px}.chip b{font-size:13px}.c1,.c3{left:0}.c2,.c4{right:0}}
+  @media(max-width:620px){.closing .wrap{width:calc(100% - 32px)}}
+  @media(max-width:480px){
+    .index{grid-template-columns:1fr}
+    .index a,.index a:nth-child(n){border-left:0;border-top:1px solid var(--line)}
+    .index a:first-child{border-top:0}
+    .chip{padding:7px 11px} .chip b{font-size:12px} .chip small{font-size:11px}
+    .hero-mark{min-height:400px}
+    .hero h1{font-size:40px}
+  }
+  @media(max-width:480px){.hero-mark{min-height:400px}.chip b{font-size:12.5px}.chip small{font-size:11px}.route{padding:14px}.route b{font-size:18px}.route svg{width:40px}}
+</style>
+<style>
+.hero{background:linear-gradient(rgba(255,255,255,.28),rgba(255,255,255,.28)),url("assets/bg-hero.jpg") center/cover no-repeat,linear-gradient(135deg,#FFFFFF 0%,#F7FCF9 52%,#F8FBFF 100%)}
+
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .kk-gold{color:#B8862B} footer .kk-gold{color:#D9B04A}
+  .kk-lock{display:inline-flex;flex-direction:column;line-height:1}
+  .kk-l2{margin-top:5px;font-family:'Manrope',system-ui,sans-serif;font-weight:700;font-size:.43em;letter-spacing:.14em;white-space:nowrap;opacity:.8}
+  .brand{line-height:1} .kk-full{white-space:nowrap} .legal{font-size:14px}
+  @media(max-width:480px){.legal{letter-spacing:.03em;font-size:11.5px}.brand{font-size:17px;gap:9px}.brand img{height:34px}}
+</style>
+</head>
+<body class="no-js">
+
+<nav class="topbar" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/img-1.png" alt="" /><span class="sr">KenKeen Seva (OPC) Private Limited</span><span class="kk-lock" aria-hidden="true"><span class="kk-l1">KEN<span class="kk-gold">KEEN</span></span><span class="kk-l2">SEVA (OPC) PRIVATE LIMITED</span></span></a>
+    <div class="navlinks">
+      <a href="#adventure">Adventure</a>
+      <a href="#travel">Travel</a>
+      <a href="#delivery">Courier &amp; Food</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="tagline">One house, four ways to go</p>
+        <h1>Go further.<br>Ride easier.<br>Send it fast.</h1>
+        <p class="lead">Adventures to chase, buses to catch, parcels to send and meals to enjoy — all under one roof, all with the same word: KenKeen.</p>
+        <p class="legal"><span class="kk-full">KEN<span class="kk-gold">KEEN</span> SEVA (OPC) PRIVATE LIMITED</span></p>
+      </div>
+      <div class="hero-mark" id="mark">
+        <div class="mark-card"><img src="assets/img-1.png" alt="KenKeen — the king of all" /></div>
+      </div>
+    </div>
+    <nav class="index" aria-label="Services">
+      <a class="i1" href="#adventure"><b>Adventure</b><span>Trips into India's wild corners</span></a>
+      <a class="i2" href="#travel"><b>Travel</b><span>Bus journeys, simply booked</span></a>
+      <a class="i3" href="#delivery"><b>Courier</b><span>Parcels with live tracking</span></a>
+      <a class="i4" href="#delivery"><b>Food</b><span>Meals to your doorstep</span></a>
+    </nav>
+  </div>
+</header>
+
+<section class="chapter adventure" id="adventure">
+  <div class="wrap adv-grid">
+    <div class="txt reveal">
+      <span class="tag">KenKeen Adventure</span>
+      <h2>Lighting the way to your next adventure.</h2>
+      <p>Discover destinations, explore India's wild corners and plan trips worth remembering — from Himalayan rivers to Kerala backwaters.</p>
+      <a class="btn" href="./travel-adventure/index.html">Enter Adventure</a>
+      <ul class="stops"><li>Rishikesh</li><li>Alleppey</li><li>Srinagar</li><li>Hampi</li></ul>
+    </div>
+    <div class="mosaic reveal">
+      <figure class="m1"><img loading="lazy" alt="Rishikesh" src="assets/pexels-photo-13918457.jpg" onerror="this.remove()"><figcaption>Rishikesh</figcaption></figure>
+      <figure class="m2"><img loading="lazy" alt="Alleppey backwaters" src="assets/pexels-photo-35347829.jpg" onerror="this.remove()"><figcaption>Alleppey</figcaption></figure>
+      <figure class="m3"><img loading="lazy" alt="Srinagar" src="assets/pexels-photo-15962039.jpg" onerror="this.remove()"><figcaption>Srinagar</figcaption></figure>
+      <figure class="m4"><img loading="lazy" alt="Hampi" src="assets/pexels-photo-28656073.jpg" onerror="this.remove()"><figcaption>Hampi</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="chapter travel" id="travel">
+  <div class="wrap trv-grid">
+    <div class="scene reveal">
+      <img loading="lazy" src="assets/img-2.webp" alt="KenKeen coach on an open road" width="658" height="339" />
+    </div>
+    <div class="txt reveal">
+      <span class="tag">KenKeen Travel</span>
+      <h2>Hop on. We'll handle the route.</h2>
+      <p>Plan your journeys and explore travel services with KenKeen — simple bookings, comfortable rides, no stress.</p>
+      <div class="route" aria-hidden="true">
+        <div><small>From</small><b>Your city</b></div>
+        <svg viewBox="0 0 72 12" fill="none"><circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 6h48" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/><circle cx="66" cy="6" r="4" fill="currentColor"/></svg>
+        <div><small>To</small><b>Anywhere</b></div>
+      </div>
+      <a class="btn" href="https://travels.ken-keen.com/" target="_blank" rel="noopener noreferrer">Explore Travel</a>
+    </div>
+  </div>
+</section>
+
+<section class="chapter delivery" id="delivery">
+  <div class="wrap dl-wrap">
+    <div class="dl-head reveal">
+      <span class="tag">KenKeen Courier</span>
+      <h2>Delivering more than parcels.</h2>
+      <p>Choose what you need — we'll bring it to the doorstep.</p>
+    </div>
+    <div class="dl-cards">
+      <a class="dl-card parcel reveal" href="./courier/index.html">
+        <div class="pic"><img loading="lazy" src="assets/img-3.webp" alt="KenKeen courier carrying a parcel" width="290" height="339" /></div>
+        <div class="body">
+          <div class="lab">Courier service</div>
+          <h3>Parcel Courier</h3>
+          <p>Send parcels and manage your courier deliveries with live tracking.</p>
+          <span class="btn">Enter Parcel Courier</span>
+        </div>
+      </a>
+      <a class="dl-card food reveal" href="./food-delivery/index.html">
+        <div class="pic"><img loading="lazy" src="assets/img-4.webp" alt="KenKeen food bag, coffee and pizza" width="336" height="326" /></div>
+        <div class="body">
+          <div class="lab">Food service</div>
+          <h3>Food Delivery</h3>
+          <p>Order food you love and get it delivered to your doorstep.</p>
+          <span class="btn">Enter Food Delivery</span>
+        </div>
+      </a>
+    </div>
+    <div class="rider-strip reveal">
+      <img loading="lazy" src="assets/img-5.webp" alt="KenKeen riders and van on a city road" width="608" height="326" />
+      <span>Riding your way, every day</span>
+    </div>
+  </div>
+</section>
+
+<section class="closing" aria-label="KenKeen — Travel, Deliver, Enjoy">
+  <div class="wrap"><img loading="lazy" src="assets/img-6.webp" alt="KenKeen — Travel · Deliver · Enjoy" width="972" height="266" /></div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="foot-brand">
+      <div class="logo-tile"><img src="assets/img-1.png" alt="KenKeen Seva (OPC) Private Limited" /></div>
+      <div class="fw"><span class="sr">KenKeen Seva (OPC) Private Limited</span><span class="kk-lock" aria-hidden="true"><span class="kk-l1">KEN<span class="kk-gold">KEEN</span></span><span class="kk-l2">SEVA (OPC) PRIVATE LIMITED</span></span></div>
+    </div>
+    <p>&copy; <span id="year"></span> KenKeen Seva (OPC) Private Limited. All rights reserved. The Adventure, Travel, Courier and Food divisions operate under this company.</p>
+  </div>
+</footer>
+
+<script>
+  document.body.classList.remove('no-js');
+  document.getElementById('year').textContent = new Date().getFullYear();
+  var items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    items.forEach(function (el) { io.observe(el); });
+  } else { items.forEach(function (el) { el.classList.add('in'); }); }
+  var mark = document.getElementById('mark');
+  if (mark && window.matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference)').matches) {
+    var hero = document.getElementById('top');
+    var clamp = function (v) { return Math.max(-1, Math.min(1, v)); };
+    hero.addEventListener('pointermove', function (e) {
+      var r = mark.getBoundingClientRect();
+      var x = clamp((e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2));
+      var y = clamp((e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2));
+      mark.style.setProperty('--ry', (x * 8) + 'deg'); mark.style.setProperty('--rx', (-y * 6) + 'deg');
+      mark.style.setProperty('--mx', x); mark.style.setProperty('--my', y);
+    });
+    hero.addEventListener('pointerleave', function () {
+      ['--rx','--ry','--mx','--my'].forEach(function (k) { mark.style.removeProperty(k); });
+    });
+  }
+</script>
+<script src="kk-core.js" data-site="main" data-head="What customers say about KenKeen" data-ask="How was your experience with KenKeen?"></script>
+</body>
+</html>
