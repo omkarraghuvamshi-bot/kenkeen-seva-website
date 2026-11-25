@@ -1,54 +1,53 @@
-# KenKeen Seva (OPC) Private Limited — official website
+# KenKeen Seva — Render + Neon + Cloudinary
 
-Static front end (`public/`) + Node.js backend (`server/server.js`) + SQLite database.
+The application serves the static website from `public/` and its Express API from `server/server.js`.
 
-## Run locally
-```bash
-npm install
-export ADMIN_EMAIL="you@yourcompany.com"
-export ADMIN_PASSWORD="a-long-password-min-10-chars"
-npm start            # http://localhost:3000
-```
-The database (`data/kenkeen.db`) and uploaded photos (`data/uploads/`) are created automatically.
+## Hosting architecture
+- **Render Web Service (Free):** Express app and static frontend.
+- **Neon:** PostgreSQL database for users, reviews, gallery and travel place photos.
+- **Cloudinary:** Persistent storage for uploaded review/gallery/place photos.
 
-## Accounts
-- There are **no built-in or demo accounts**. The administrator is created from `ADMIN_EMAIL` / `ADMIN_PASSWORD` on start-up
-  (re-start with a new password to change it).
-- Customers create their own accounts from the **Login** button. Passwords are stored as bcrypt hashes.
-- Admin signs in from the same Login button → opens the Admin panel (hide / reply to / delete reviews, manage gallery photos for every site).
+The app no longer uses SQLite or local disk storage. Render's ephemeral filesystem is therefore not used for persistent application data.
 
-## What the backend provides
-| Endpoint | Purpose |
+## Required environment variables
+
+Set these in Render → your service → Environment:
+
+| Variable | Value |
 |---|---|
-| `POST /api/auth/signup`, `/login`, `/logout`, `GET /api/auth/me` | customer + admin sessions (httpOnly cookie) |
-| `GET /api/reviews?site=main\|travel\|courier\|food` | public reviews, average, gallery |
-| `POST /api/reviews`, `DELETE /api/reviews/:id` | signed-in customer writes / deletes own review |
-| `/api/admin/*` | admin-only moderation and gallery |
+| `NODE_ENV` | `production` |
+| `JWT_SECRET` | Random secret, at least 32 characters |
+| `DATABASE_URL` | Neon PostgreSQL connection string |
+| `ADMIN_EMAIL` | Admin login email |
+| `ADMIN_PASSWORD` | Admin password, at least 10 characters |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name |
+| `CLOUDINARY_API_KEY` | Cloudinary API key |
+| `CLOUDINARY_API_SECRET` | Cloudinary API secret |
 
-Security included: bcrypt, signed httpOnly session cookie, rate limiting, Helmet headers, CSRF header check, input validation, image type/size checks.
+Render supplies `PORT` automatically. Do not set `DATA_DIR` or `DATABASE_PATH`.
 
-## Deploying (important)
-SQLite is a file, so the host needs a **persistent disk**. Vercel (where the old demo was hosted) does not keep files between requests,
-so use Render, Railway, Fly.io or a VPS, and set these environment variables:
+## Local development
+1. Install Node.js 18 or newer.
+2. Run `npm install`.
+3. Copy `.env.example` to `.env` and fill in the required credentials.
+4. Run `npm start`.
 
-`NODE_ENV=production`, `JWT_SECRET` (long random string), `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `DATA_DIR` (path on the persistent disk).
+## Database
+On startup, the server creates the required PostgreSQL tables and indexes in Neon if they do not already exist. Keep the Neon connection string private. Use Neon's pooled connection string if available.
 
-Serve it over HTTPS. Back up the `DATA_DIR` folder regularly.
+## Images
+Uploads are validated as JPEG, PNG or WebP and limited to 1.5 MB. They are uploaded to the `kenkeen-seva` folder in Cloudinary; the resulting secure URL is stored in Neon.
 
-## Site structure (same as your original bundle)
-```
-public/index.html                   main page (KenKeen Seva (OPC) Private Limited)
-public/travel-adventure/index.html  Travel & Adventure   (data-site="travel")
-public/courier/index.html           Courier              (data-site="courier")
-public/food-delivery/index.html     Food delivery        (data-site="food")
-public/kk-core.js                   shared: login, reviews, admin panel, travel place photos
-public/assets/                      logo, hero background, photos
-```
-Every page loads `kk-core.js`, so one login works across the whole site, and each division has its own reviews.
-Travel place pages (`#/place/...`) also get the "Stay & trip photos" carousel, which the admin fills in.
+## Existing data
+This deployment initializes a fresh Neon database. Existing SQLite users, reviews, gallery entries and local uploads are **not automatically migrated**. If the old SQLite database contains real data, export/import it separately before switching production traffic.
 
-## Not part of the backend yet
-The division pages are self-contained apps. Their own features (courier orders, food cart/orders/profile, travel wishlist) still
-save in the visitor's browser, and the food page's payment is a simulation. These need their own database tables and a payment
-gateway before they can be used for real business.
-The old `index1.html` backup files from your bundle were left out.
+## Existing API
+The existing routes and JSON response shapes are retained:
+- `POST /api/auth/signup`, `/login`, `/logout`, `GET /api/auth/me`
+- `GET /api/reviews?site=main|travel|courier|food`
+- `POST /api/reviews`, `DELETE /api/reviews/:id`
+- `/api/admin/*`
+- `GET /api/place-photos`
+- `GET /api/health`
+
+The travel wishlist, courier orders, food cart/orders/profile and payment simulation remain browser-local as in the original site; they have not been converted into server-side business workflows.
